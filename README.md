@@ -1,0 +1,2 @@
+# wishlistzone
+store
