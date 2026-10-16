@@ -1,0 +1,292 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --pink: #f7a6c4;
+  --pink-dark: #e85e91;
+  --pink-light: #fff0f6;
+  --text: #bd527c;
+}
+
+body {
+  font-family: "Trebuchet MS", Arial, sans-serif;
+  background: linear-gradient(135deg, #fff5f9, #fbddeb);
+  color: var(--text);
+  min-height: 100vh;
+  padding: 25px;
+}
+
+.container {
+  max-width: 1250px;
+  margin: auto;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 18px 25px;
+  background: #ffffff;
+  border: 2px solid #ffd5e4;
+  border-radius: 25px;
+  box-shadow: 0 6px 20px #d95f8b15;
+}
+
+.logo {
+  width: 95px;
+  height: 95px;
+  border-radius: 50%;
+  object-fit: contain;
+}
+
+.brand h1 {
+  color: var(--pink-dark);
+  font-size: clamp(22px, 3vw, 38px);
+}
+
+.brand p {
+  font-size: 12px;
+  letter-spacing: 3px;
+  margin-top: 7px;
+}
+
+.hero {
+  text-align: center;
+  padding: 35px 10px 25px;
+}
+
+.hero h2 {
+  font-size: clamp(32px, 5vw, 54px);
+  color: #d85e8c;
+  margin-bottom: 10px;
+}
+
+.hero p {
+  font-size: 17px;
+  color: #d17b9d;
+}
+
+.decoration {
+  margin-top: 18px;
+  color: #ed8fb2;
+  letter-spacing: 8px;
+  font-size: 22px;
+}
+
+.months {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 9px;
+  padding: 12px;
+  margin-bottom: 28px;
+  background: #ffffff80;
+  border: 1px solid #ffd9e6;
+  border-radius: 22px;
+}
+
+.month-btn {
+  background: white;
+  border: 1px solid #f8c7da;
+  color: var(--pink-dark);
+  border-radius: 30px;
+  padding: 12px 19px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.month-btn:hover {
+  background: #ffe2ed;
+  transform: translateY(-2px);
+}
+
+.month-btn.active {
+  background: var(--pink-dark);
+  color: white;
+  border-color: var(--pink-dark);
+}
+
+.gallery-heading {
+  text-align: center;
+  margin-bottom: 22px;
+}
+
+.gallery-heading h3 {
+  font-size: 25px;
+  margin-bottom: 8px;
+}
+
+.gallery-heading p {
+  font-size: 13px;
+  color: #c77b98;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.card {
+  min-width: 0;
+  background: white;
+  padding: 13px;
+  border: 2px solid #fbd6e4;
+  border-radius: 20px;
+  box-shadow: 0 6px 20px #d95f8b12;
+  transition: 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px #d95f8b25;
+}
+
+.testi-photo {
+  width: 100%;
+  height: 240px;
+  display: block;
+  object-fit: contain;
+  background: #fff4f8;
+  border-radius: 13px;
+  cursor: zoom-in;
+}
+
+.product-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 13px;
+}
+
+.product-name {
+  font-weight: bold;
+  font-size: 16px;
+  color: var(--pink-dark);
+}
+
+.product-plan {
+  font-size: 12px;
+  margin-top: 5px;
+  color: #bb7a96;
+}
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 13px;
+}
+
+.date {
+  background: var(--pink-light);
+  padding: 8px 13px;
+  border-radius: 22px;
+  font-size: 13px;
+}
+
+.heart {
+  color: #f18aaf;
+  font-size: 22px;
+}
+
+.empty {
+  display: none;
+  text-align: center;
+  background: white;
+  padding: 40px 15px;
+  border-radius: 20px;
+}
+
+footer {
+  text-align: center;
+  padding: 35px 10px 15px;
+  color: #cf789b;
+  font-size: 14px;
+}
+
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  background: #53293bcf;
+  align-items: center;
+  justify-content: center;
+  padding: 25px;
+}
+
+.lightbox.show {
+  display: flex;
+}
+
+.lightbox img {
+  max-width: 90%;
+  max-height: 85vh;
+  object-fit: contain;
+  background: white;
+  padding: 5px;
+  border-radius: 15px;
+}
+
+#closeLightbox {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  background: white;
+  color: var(--pink-dark);
+  border: none;
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+@media (max-width: 800px) {
+  body {
+    padding: 12px;
+  }
+
+  .gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .testi-photo {
+    height: 200px;
+  }
+
+  .header {
+    padding: 12px;
+  }
+
+  .logo {
+    width: 68px;
+    height: 68px;
+  }
+
+  .brand p {
+    letter-spacing: 1px;
+    font-size: 10px;
+  }
+
+  .month-btn {
+    padding: 10px 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .gallery {
+    grid-template-columns: 1fr;
+  }
+
+  .testi-photo {
+    height: 280px;
+  }
+}
