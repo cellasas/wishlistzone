@@ -30,7 +30,7 @@ body {
   align-items: center;
   gap: 18px;
   padding: 18px 25px;
-  background: #ffffff;
+  background: #fff;
   border: 2px solid #ffd5e4;
   border-radius: 25px;
   box-shadow: 0 6px 20px #d95f8b15;
@@ -90,7 +90,7 @@ body {
 }
 
 .month-btn {
-  background: white;
+  background: #fff;
   border: 1px solid #f8c7da;
   color: var(--pink-dark);
   border-radius: 30px;
@@ -107,7 +107,7 @@ body {
 
 .month-btn.active {
   background: var(--pink-dark);
-  color: white;
+  color: #fff;
   border-color: var(--pink-dark);
 }
 
@@ -134,7 +134,7 @@ body {
 
 .card {
   min-width: 0;
-  background: white;
+  background: #fff;
   padding: 13px;
   border: 2px solid #fbd6e4;
   border-radius: 20px;
@@ -144,7 +144,13 @@ body {
 
 .card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 10px 24px #d95f8b25;
+}
+
+.photo-wrapper {
+  position: relative;
+  overflow: hidden;
+  border-radius: 13px;
+  background: #fff4f8;
 }
 
 .testi-photo {
@@ -152,9 +158,25 @@ body {
   height: 240px;
   display: block;
   object-fit: contain;
-  background: #fff4f8;
-  border-radius: 13px;
   cursor: zoom-in;
+  -webkit-user-drag: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.watermark {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  padding: 6px 10px;
+  border-radius: 20px;
+  color: #fff;
+  background: #c94f83a8;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  pointer-events: none;
+  text-shadow: 0 1px 3px #6b2948;
 }
 
 .product-info {
@@ -198,7 +220,7 @@ body {
 .empty {
   display: none;
   text-align: center;
-  background: white;
+  background: #fff;
   padding: 40px 15px;
   border-radius: 20px;
 }
@@ -215,7 +237,7 @@ footer {
   position: fixed;
   inset: 0;
   z-index: 10;
-  background: #53293bcf;
+  background: #53293be8;
   align-items: center;
   justify-content: center;
   padding: 25px;
@@ -225,20 +247,32 @@ footer {
   display: flex;
 }
 
-.lightbox img {
-  max-width: 90%;
+.lightbox-photo {
+  position: relative;
+  display: inline-block;
+  max-width: 90vw;
+  max-height: 85vh;
+}
+
+.lightbox-photo img {
+  display: block;
+  max-width: 90vw;
   max-height: 85vh;
   object-fit: contain;
-  background: white;
+  background: #fff;
   padding: 5px;
   border-radius: 15px;
+  -webkit-user-drag: none;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 #closeLightbox {
   position: absolute;
   top: 20px;
   right: 25px;
-  background: white;
+  z-index: 11;
+  background: #fff;
   color: var(--pink-dark);
   border: none;
   border-radius: 50%;
@@ -246,6 +280,12 @@ footer {
   height: 42px;
   font-size: 30px;
   cursor: pointer;
+}
+
+img {
+  -webkit-user-drag: none;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 @media (max-width: 800px) {

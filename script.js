@@ -5,172 +5,194 @@ const monthNames = [
   "September", "Oktober", "November", "Desember"
 ];
 
-// Data contoh testimoni.
-// Angka 9 berarti Oktober.
+// Ganti nama file dan informasi sesuai foto milikmu.
+// Januari = 0, Februari = 1, Maret = 2, ... Oktober = 9.
 const testimonials = [
   {
     month: 9,
-    image: "images/testimoni/netflix-1.jpg",
+    image: "images/testimoni/Netflix-1.jpg",
     app: "Netflix",
-    plan: "Premium • 1 bulan"
+    plan: "Premium • 3 Hari "
   },
   {
     month: 9,
-    image: "images/testimoni/capcut-1.jpg",
-    app: "CapCut Pro",
-    plan: "Pro • 1 bulan"
+    image: "images/testimoni/Netflix-2.jpg",
+    app: "Netflix",
+    plan: "Pro • 7 Hari"
   },
   {
     month: 9,
-    image: "images/testimoni/canva-1.jpg",
-    app: "Canva Pro",
-    plan: "Pro • 1 tahun"
+    image: "images/testimoni/Netflix-3.jpg",
+    app: "Netflix",
+    plan: "Premium • 7 Hari"
   },
   {
     month: 9,
-    image: "images/testimoni/spotify-1.jpg",
-    app: "Spotify Premium",
-    plan: "Premium • 1 bulan"
+    image: "images/testimoni/Netflix-4.jpg",
+    app: "Netflix",
+    plan: "Premium • 3 Hari"
   },
   {
     month: 9,
-    image: "images/testimoni/disney-1.jpg",
-    app: "Disney+",
-    plan: "Premium • 1 bulan"
+    image: "images/testimoni/Canva-1.jpg",
+    app: "Canva",
+    plan: "Pro • 3 Hari"
   },
-  {
-    month: 9,
-    image: "images/testimoni/youtube-1.jpg",
-    app: "YouTube Premium",
-    plan: "Individual • 1 bulan"
-  }
 ];
 
-const monthsElement = document.getElementById("months");
+const monthsContainer = document.getElementById("months");
 const gallery = document.getElementById("gallery");
-const title = document.getElementById("galleryTitle");
-const count = document.getElementById("galleryCount");
+const galleryTitle = document.getElementById("galleryTitle");
+const galleryCount = document.getElementById("galleryCount");
 const empty = document.getElementById("empty");
 
 const lightbox = document.getElementById("lightbox");
 const largeImage = document.getElementById("largeImage");
 const closeLightbox = document.getElementById("closeLightbox");
 
-// Membuat tombol bulan
-monthNames.forEach((month, index) => {
-  const button = document.createElement("button");
-  button.className = "month-btn";
-  button.textContent = month.slice(0, 3).toUpperCase();
-  button.title = month;
+let selectedMonth = 9;
 
-  button.addEventListener("click", () => showMonth(index));
-  monthsElement.appendChild(button);
-});
+function createMonthButtons() {
+  monthsContainer.innerHTML = "";
 
-// Membuat foto dengan watermark
-function createPhoto(item, className) {
-  const wrapper = document.createElement("div");
-  wrapper.className = "photo-wrapper";
+  monthNames.forEach((month, index) => {
+    const button = document.createElement("button");
+    button.className = "month-btn";
+    button.textContent = month.slice(0, 3);
+    button.type = "button";
+    button.setAttribute("aria-label", month);
 
-  const photo = document.createElement("img");
-  photo.className = className;
-  photo.src = item.image;
-  photo.alt = `Testimoni ${item.app}`;
-  photo.draggable = false;
-  photo.loading = "lazy";
-
-  photo.addEventListener("dragstart", event => {
-    event.preventDefault();
-  });
-
-  photo.addEventListener("error", () => {
-    photo.alt = `Foto belum tersedia: ${item.app}`;
-  });
-
-  const watermark = document.createElement("span");
-  watermark.className = "watermark";
-  watermark.textContent = "WishlistZone ♡";
-
-  wrapper.append(photo, watermark);
-  return { wrapper, photo };
-}
-
-// Menampilkan testimoni sesuai bulan
-function showMonth(monthIndex) {
-  document.querySelectorAll(".month-btn").forEach((button, index) => {
-    button.classList.toggle("active", index === monthIndex);
-  });
-
-  const selected = testimonials.filter(
-    item => item.month === monthIndex
-  );
-
-  title.textContent = `♡ Testimoni ${monthNames[monthIndex]} ♡`;
-  count.textContent = `${selected.length} testimoni pelanggan`;
-
-  gallery.innerHTML = "";
-  empty.style.display = selected.length ? "none" : "block";
-
-  selected.forEach(item => {
-    const card = document.createElement("article");
-    card.className = "card";
-
-    const { wrapper, photo } = createPhoto(item, "testi-photo");
-
-    photo.addEventListener("click", () => {
-      if (photo.naturalWidth > 0) {
-        largeImage.src = item.image;
-        lightbox.classList.add("show");
-      }
+    button.addEventListener("click", () => {
+      selectedMonth = index;
+      showMonth(index);
     });
 
-    const productInfo = document.createElement("div");
-    productInfo.className = "product-info";
+    monthsContainer.appendChild(button);
+  });
+}
 
-    const details = document.createElement("div");
+function showMonth(month) {
+  selectedMonth = month;
 
-    const appName = document.createElement("div");
-    appName.className = "product-name";
-    appName.textContent = item.app;
+  gallery.innerHTML = "";
+  galleryTitle.textContent = `Testimoni ${monthNames[month]} ♡`;
 
-    const plan = document.createElement("div");
-    plan.className = "product-plan";
+  const filtered = testimonials.filter(item => item.month === month);
+
+  galleryCount.textContent =
+    `${filtered.length} testimoni`;
+
+  empty.hidden = filtered.length !== 0;
+
+  document.querySelectorAll(".month-btn").forEach((button, index) => {
+    button.classList.toggle("active", index === month);
+    button.setAttribute("aria-pressed", index === month);
+  });
+
+  filtered.forEach(item => {
+    const card = document.createElement("article");
+    card.className = "testi-card";
+
+    const wrapper = document.createElement("div");
+    wrapper.className = "photo-wrapper";
+    wrapper.tabIndex = 0;
+    wrapper.setAttribute("role", "button");
+    wrapper.setAttribute("aria-label", `Lihat foto ${item.app}`);
+
+    const image = document.createElement("img");
+    image.className = "testi-photo";
+    image.src = item.image;
+    image.alt = `Testimoni ${item.app}`;
+    image.loading = "lazy";
+
+    image.addEventListener("error", () => {
+      image.alt = `Foto tidak ditemukan: ${item.image}`;
+      image.style.display = "none";
+      wrapper.style.minHeight = "180px";
+      wrapper.style.padding = "20px";
+      wrapper.textContent = `Foto tidak ditemukan: ${item.image}`;
+    });
+
+    const watermark = document.createElement("span");
+    watermark.className = "watermark";
+    watermark.textContent = "WishlistZone ♡";
+
+    wrapper.append(image, watermark);
+
+    const info = document.createElement("div");
+    info.className = "testi-info";
+
+    const title = document.createElement("h3");
+    title.textContent = item.app;
+
+    const plan = document.createElement("p");
     plan.textContent = item.plan;
 
-    details.append(appName, plan);
-    productInfo.append(details);
-
-    const footer = document.createElement("div");
-    footer.className = "card-footer";
-
-    const date = document.createElement("span");
-    date.className = "date";
-    date.textContent = `♡ ${monthNames[monthIndex]}`;
-
-    const heart = document.createElement("span");
-    heart.className = "heart";
-    heart.textContent = "♡";
-
-    footer.append(date, heart);
-    card.append(wrapper, productInfo, footer);
+    info.append(title, plan);
+    card.append(wrapper, info);
     gallery.appendChild(card);
+
+    function openPhoto() {
+      largeImage.src = item.image;
+      largeImage.alt = `Testimoni ${item.app}`;
+      lightbox.classList.add("open");
+      lightbox.setAttribute("aria-hidden", "false");
+    }
+
+    wrapper.addEventListener("click", openPhoto);
+    wrapper.addEventListener("keydown", event => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        openPhoto();
+      }
+    });
   });
 }
 
 function closePhoto() {
-  lightbox.classList.remove("show");
+  lightbox.classList.remove("open");
+  lightbox.setAttribute("aria-hidden", "true");
   largeImage.src = "";
 }
 
 closeLightbox.addEventListener("click", closePhoto);
 
 lightbox.addEventListener("click", event => {
-  if (event.target === lightbox) closePhoto();
+  if (event.target === lightbox) {
+    closePhoto();
+  }
 });
 
 document.addEventListener("keydown", event => {
-  if (event.key === "Escape") closePhoto();
+  if (event.key === "Escape") {
+    closePhoto();
+  }
 });
 
-// Tampilkan Oktober saat website dibuka
-showMonth(9);
+createMonthButtons();
+showMonth(selectedMonth);
+
+  filtered.forEach(item => {
+    // kode kartu testimoni kamu tetap di sini
+  });
+
+ 
+function protectImages() {
+  document.querySelectorAll(".photo-wrapper, .lightbox-photo")
+    .forEach(wrapper => {
+      if (wrapper.dataset.protectionAdded) return;
+      wrapper.dataset.protectionAdded = "true";
+
+      wrapper.addEventListener("contextmenu", event => {
+        event.preventDefault();
+        wrapper.classList.add("protected");
+
+        alert("Foto WishlistZone dilindungi ♡");
+
+        setTimeout(() => {
+          wrapper.classList.remove("protected");
+        }, 2500);
+      });
+    });
+}
+
